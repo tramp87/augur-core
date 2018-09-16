@@ -1,7 +1,6 @@
 import BN = require('bn.js');
 import { hash } from 'crypto-promise';
 import { exists, readFile, writeFile } from "async-file";
-import { exec } from 'child_process';
 import { encodeParams } from 'ethjs-abi';
 import { TransactionReceipt } from 'ethjs-shared';
 import { stringTo32ByteHex, resolveAll } from "./HelperFunctions";
@@ -95,16 +94,7 @@ Deploying to: ${networkConfiguration.networkName}
     }
 
     private static async getGitCommit(): Promise<string> {
-        // If we couldn't get the hash from a git repo, try to get it from NPM
-        return await new Promise<string>( (resolve, reject) => {
-            exec("npm show . gitHead", (error, stdout, stderr) => {
-                if (error) {
-                    console.log(stderr);
-                    return reject(error);
-                }
-                resolve(`0x${stdout.trim()}`);
-            });
-        });
+        return '0x1a96182f23ad318eb4478ba9705c2e22672beeb4';
     }
 
     private static async getBytecodeSha(bytecode: Buffer): Promise<string> {
